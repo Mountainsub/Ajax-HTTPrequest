@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+　
+
+　　<td>
+　　　<input type="url" name="github_url"  />
+　　　<input type="email" name="contact_email"  />
+　　</td>
+　　<td>
+　　　<!-- Aボタン押下とともにIDと個数をパラメータとして送信 --> 
+　　　<button class="AButton">送信</button>
+　　</td>
+　</tr>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+$(() => {
+  $('.AButton').on('click', demo);
+});     
+
+
+  let demo = (event) =>{
+  let github_url= $(event.target).parents('tr').find("[name='github_url]").val();
+  let contact_email = $(event.target).parents('tr').find("[name='contact_email']").val();
+
+  let data = {
+        'github_url':   github_url,
+        'contact_email': contact_email
+  };
+
+  let f = document.createElement('form');   
+  f.method = 'post';               //通信方法はPOST
+  f.action = 'https://api.challenge.hennge.com/challenges/003';   //情報の送り先URL
+
+  //innerHTMLメソッドは要素の内容を変更するプログラム。値を代入したり内容を空にすることができる。
+  //ここではそれぞれのvalueにさきほど定義した変数を指定
+  f.innerHTML = '<input name="github_url" value='+  github_url + '>' +
+                '<input name="contact_email" value=' + contact_email + '>';
+
+  //せっかく作ったform部品もhtmlのBodyに反映させなきゃ意味がないので
+  //appendでBody内に挿入
+  document.body.append(f);
+
+  //submit()で情報送信
+  form.submit();  
+}
+</script>
+
+
+</html>
